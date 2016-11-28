@@ -35,10 +35,14 @@ class Application(Frame):
         self.label1.set('')
         self.label2 = StringVar()
         self.label2.set('')
-        self.imgFg = StringVar()
-        self.imgFg.set('Color')
-        self.imgBg = StringVar()
-        self.imgBg.set('Color')
+        self.imgFg1 = StringVar()
+        self.imgFg1.set('Color')
+        self.imgBg1 = StringVar()
+        self.imgBg1.set('Color')
+        self.imgFg2 = StringVar()
+        self.imgFg2.set('Color')
+        self.imgBg2 = StringVar()
+        self.imgBg2.set('Color')
         self.imgWidth = StringVar()
         self.imgWidth.set('600')
         self.imgHeight = StringVar()
@@ -67,6 +71,12 @@ class Application(Frame):
         Entry(frame, textvariable=self.auth1, width=10).grid(row=0, column=3, sticky=W)
         Button(frame, text='Check', command=self.connect1).grid(row=1, column=0)
         Label(frame, textvariable=self.desc1).grid(row=1, column=1, columnspan=4)
+        Frame(frame, height=2, borderwidth=2, relief=RIDGE).grid(padx=5, pady=5, row=2, column=0, columnspan=5, sticky=EW)
+        Label(frame, text='Label:').grid(row=3, column=0, sticky=E)
+        Entry(frame, width=30, textvariable=self.label1).grid(row=3, column=1, columnspan=4, sticky=W)
+        Label(frame, text='Fg/Bg:').grid(row=4, column=0, sticky=E)
+        OptionMenu(frame, self.imgFg1, 'Color', 'Grayscale', 'White', 'Black').grid(row=4, column=1, sticky=W)
+        OptionMenu(frame, self.imgBg1, 'Color', 'Grayscale', 'White', 'Black', 'Transparent').grid(row=4, column=2, columnspan=2, sticky=W)
 
         frame = Frame(topframe, padx=5, pady=10)
         frame.pack(side='left', fill='both', expand='yes')
@@ -81,26 +91,27 @@ class Application(Frame):
         Entry(frame, textvariable=self.auth2, width=10).grid(row=0, column=3, sticky=W)
         Button(frame, text='Check', command=self.connect2).grid(row=1, column=0)
         Label(frame, textvariable=self.desc2).grid(row=1, column=1, columnspan=4)
+        Frame(frame, height=2, borderwidth=2, relief=RIDGE).grid(padx=5, pady=5, row=2, column=0, columnspan=5, sticky=EW)
+        Label(frame, text='Label:').grid(row=3, column=0, sticky=E)
+        Entry(frame, width=30, textvariable=self.label2).grid(row=3, column=1, columnspan=4, sticky=W)
+        Label(frame, text='Fg/Bg:').grid(row=4, column=0, sticky=E)
+        OptionMenu(frame, self.imgFg2, 'Color', 'Grayscale', 'White', 'Black').grid(row=4, column=1, sticky=W)
+        OptionMenu(frame, self.imgBg2, 'Color', 'Grayscale', 'White', 'Black', 'Transparent').grid(row=4, column=2, columnspan=2, sticky=W)
 
         frame = LabelFrame(text='Screen Capture', padx=2, pady=2)
         frame.pack(fill='both', expand='yes')
-        Label(frame, text='Label 1:').grid(row=0, column=0, sticky=E)
-        Entry(frame, width=30, textvariable=self.label1).grid(row=0, column=1, sticky=W, columnspan=3)
-        Label(frame, text='Label 2:').grid(row=0, column=4, sticky=E)
-        Entry(frame, width=30, textvariable=self.label2).grid(row=0, column=5, sticky=W, columnspan=3)
-        Label(frame, text='Fore:').grid(row=1, column=0, sticky=E)
-        OptionMenu(frame, self.imgFg, 'Color', 'Grayscale', 'White', 'Black').grid(row=1, column=1, sticky=W)
-        Label(frame, text='Back:').grid(row=2, column=0, sticky=E)
-        OptionMenu(frame, self.imgBg, 'Color', 'Grayscale', 'White', 'Black', 'Transparent').grid(row=2, column=1, sticky=W)
-        Label(frame, text='Width:').grid(row=1, column=2, sticky=E)
-        Entry(frame, width=10, textvariable=self.imgWidth).grid(row=1, column=3, sticky=W)
-        Label(frame, text='Height:').grid(row=2, column=2, sticky=E)
-        Entry(frame, width=10, textvariable=self.imgHeight).grid(row=2, column=3, sticky=W)
-        Label(frame, text='Filename:').grid(row=1, column=4, sticky=E)
-        Entry(frame, width=30, textvariable=self.imgFilename).grid(row=1, column=5, columnspan=2, sticky=W)
-        Label(frame, text='Output:').grid(row=2, column=4, sticky=E)
-        OptionMenu(frame, self.imgOutput, 'Side By Side', 'Top And Bottom', 'Blend').grid(row=2, column=5, sticky=W)
-        Button(frame, text='Capture', command=self.capture).grid(row=2, column=6)
+        Label(frame, text='W x H:').grid(row=0, column=0, sticky=E)
+        Entry(frame, width=5, textvariable=self.imgWidth).grid(row=0, column=1, sticky=W)
+        Label(frame, text='x').grid(row=0, column=2, sticky=E)
+        Entry(frame, width=5, textvariable=self.imgHeight).grid(row=0, column=3, sticky=W)
+        Frame(frame, width=2).grid(padx=5, row=0, column=4, sticky=NS)
+        Label(frame, text='Output:').grid(row=0, column=5, sticky=E)
+        OptionMenu(frame, self.imgOutput, 'Side By Side', 'Top And Bottom', 'Blend').grid(row=0, column=6, sticky=W)
+        Frame(frame, width=2).grid(padx=5, row=0, column=7, sticky=NS)
+        Label(frame, text='Filename:').grid(row=0, column=8, sticky=E)
+        Entry(frame, width=20, textvariable=self.imgFilename).grid(row=0, column=9, sticky=W)
+        Frame(frame, width=2).grid(padx=5, row=0, column=10, sticky=NS)
+        Button(frame, text='Capture', command=self.capture).grid(row=0, column=11)
 
     def connect1(self):
         glf = self.connectAndUpdateDesc(self.port1.get(), self.auth1.get(), self.desc1)
@@ -182,18 +193,21 @@ class Application(Frame):
         filename = basename + ext
         output = self.imgOutput.get()
 
+        bg1 = self.imgBg1.get()
+        bg2 = self.imgBg2.get()
+
         tempfile1 = ''
         tempfile2 = ''
         glf1 = self.connectAndUpdateDesc(self.port1.get(), self.auth1.get(), self.desc1)
         glf2 = self.connectAndUpdateDesc(self.port2.get(), self.auth2.get(), self.desc2)
         if glf1 and glf2:
             tempfile1 = '{0}_tmp1{1}'.format(basename, ext)
-            if not self.saveDisplay(glf1, tempfile1):
+            if not self.saveDisplay(glf1, self.imgFg1.get(), bg1, tempfile1):
                 os.unlink(tempfile1)
                 tempfile1 = ''
 
             tempfile2 = '{0}_tmp2{1}'.format(basename, ext)
-            if not self.saveDisplay(glf2, tempfile2):
+            if not self.saveDisplay(glf2, self.imgFg2.get(), bg2, tempfile2):
                 os.unlink(tempfile2)
                 tempfile2 = ''
 
@@ -210,14 +224,25 @@ class Application(Frame):
             (width2, height2) = image2.size
             imageout = None
 
-            if output == 'Side By Side':
+            if output != 'Blend':
                 drawer = ImageDraw.Draw(image1)
-                img_text = self.desc1.get() + "\n" + self.label1.get()
-                drawer.text((0, 0), img_text, (255,255,0), font=font)
-                drawer = ImageDraw.Draw(image2)
-                img_text = self.desc2.get() + "\n" + self.label2.get()
-                drawer.text((0, 0), img_text, (255,255,0), font=font)
+                img_text = self.desc1.get()
+                if self.label1.get():
+                    img_text += "\n" + self.label1.get()
+                size = drawer.textsize(img_text, font=font)
+                drawer.rectangle((0, 0, size[0], size[1]), (255,255,255))
+                drawer.text((0, 0), img_text, (0,0,0), font=font)
 
+                drawer = ImageDraw.Draw(image2)
+                img_text = self.desc2.get()
+                if self.label2.get():
+                    img_text += "\n" + self.label2.get()
+                size = drawer.textsize(img_text, font=font)
+                drawer.rectangle((0, 0, size[0], size[1]), (255,255,255))
+                drawer.text((0, 0), img_text, (0,0,0), font=font)
+            
+
+            if output == 'Side By Side':
                 new_width = width1 + width2
                 new_height = max(height1, height2)
 
@@ -226,13 +251,6 @@ class Application(Frame):
                 imageout.paste(im=image2, box=(width1, 0))
 
             elif output == 'Top And Bottom':
-                drawer = ImageDraw.Draw(image1)
-                img_text = self.desc1.get() + "\n" + self.label1.get()
-                drawer.text((0, 0), img_text, (255,255,0), font=font)
-                drawer = ImageDraw.Draw(image2)
-                img_text = self.desc2.get() + "\n" + self.label2.get()
-                drawer.text((0, 0), img_text, (255,255,0), font=font)
-
                 new_width = max(width1, width2)
                 new_height = height1 + height2
 
@@ -242,7 +260,22 @@ class Application(Frame):
 
             elif output == 'Blend':
                 new_size = (max(width1, width2), max(height1, height2))
-                imageout = Image.blend(image1.resize(new_size), image2.resize(new_size), 0.5)
+                image1 = image1.resize(new_size)
+                image2 = image2.resize(new_size)
+                if bg1 == 'Transparent' and bg2 == 'Transparent':
+                    imageout = Image.new('RGBA', new_size, (0,0,0,0))
+                    imageout.paste(im=image1, box=(0, 0), mask=image1)
+                    imageout.paste(im=image2, box=(0, 0), mask=image2)
+                elif bg1 == 'Transparent' and bg2 != 'Transparent':
+                    imageout = Image.new('RGBA', new_size, (0,0,0,0))
+                    imageout.paste(im=image2, box=(0, 0))
+                    imageout.paste(im=image1, box=(0, 0), mask=image1)
+                elif bg1 != 'Transparent' and bg2 == 'Transparent':
+                    imageout = Image.new('RGBA', new_size, (0,0,0,0))
+                    imageout.paste(im=image1, box=(0, 0))
+                    imageout.paste(im=image2, box=(0, 0), mask=image2)
+                else:
+                    imageout = Image.blend(image1.resize(new_size), image2.resize(new_size), 0.5)
 
             if imageout:
                 imageout.save(filename, 'PNG')
@@ -259,9 +292,7 @@ class Application(Frame):
                 os.unlink(tempfile2)
 
 
-    def saveDisplay(self, glf, filename):
-        fg = self.imgFg.get()
-        bg = self.imgBg.get()
+    def saveDisplay(self, glf, fg, bg, filename):
         width = float(self.imgWidth.get()) / 72.0
         height = float(self.imgHeight.get()) / 72.0
 
