@@ -53,7 +53,6 @@ class Application(Frame):
         self.imgOutput.set('Side By Side')
 
         Frame.__init__(self, master)
-        self.grid()
         self.createWidgets()
 
         if self.port1.get():
