@@ -3,8 +3,8 @@
 
 import os
 from pointwise import GlyphClient, GlyphError
-from Tkinter import *
-import tkMessageBox
+from tkinter import *
+from tkinter import messagebox
 
 from PIL import Image, ImageTk, ImageFont, ImageDraw
 
@@ -126,8 +126,8 @@ class Application(Frame):
         glf = None
         desc = 'Not Connected'
         if port:
-            glf = GlyphClient()
-            if glf.connect(port=port, auth=auth):
+            glf = GlyphClient(port=port, auth=auth)
+            if glf.connect():
                 try:
                     desc = glf.eval('pw::Application getVersion')
                 except:
@@ -173,7 +173,7 @@ class Application(Frame):
             view = None
             msg = 'Failed to get the current view from Pointwise:\n'
             msg += str(e)
-            tkMessageBox.showerror('Error', msg)
+            messagebox.showerror('Error', msg)
 
         if view:
             try:
@@ -181,7 +181,7 @@ class Application(Frame):
             except GlyphError as e:
                 msg = 'Failed to set the current view in Pointwise:\n'
                 msg += str(e)
-                tkMessageBox.showerror('Error', msg)
+                messagebox.showerror('Error', msg)
 
     def capture(self):
         filename = self.imgFilename.get()
@@ -307,7 +307,7 @@ class Application(Frame):
         except GlyphError as e:
             msg = 'Failed to do screen capture in Pointwise:\n'
             msg += str(e)
-            tkMessageBox.showerror('Error', msg)
+            messagebox.showerror('Error', msg)
             result = False
         return result
 
